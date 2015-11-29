@@ -71,7 +71,7 @@ public class User_Model {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+   
     public void saveData() throws SQLException{
             String sql = "insert into  user (user_id, nama, email, password) values  ('"+username+"',"+ "'"+nama+"',"+ "'"+email+"',"+ ""+password+")";
             db.query(sql);
@@ -79,8 +79,9 @@ public class User_Model {
     }
     public void loadData(){
         try{
-            String sql = "SELECT user_id,password FROM user WHERE user_id='"+username+"' && password='"+password+"'";
-            rs=db.getData(sql);  
+            String sql = "SELECT user_id,password FROM user WHERE user_id='"+username+"'";
+            rs=db.getData(sql); 
+            if(rs!=null){
             while(rs.next()) {
                        this.username=rs.getString("user_id");
                        this.nama = rs.getString("nama");
@@ -88,6 +89,7 @@ public class User_Model {
                        this.password = rs.getString("password");
                    }
                rs.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(User_Model.class.getName()).log(Level.SEVERE, null, ex);
         }
